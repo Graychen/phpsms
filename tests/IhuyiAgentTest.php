@@ -71,18 +71,18 @@ class IhuyiAgentTest extends \PHPUnit_Framework_TestCase
 
     public function testSetTemplate()
     {
-        self::$sms->template('Luosimao', '123');
+        self::$sms->template('IhuyiAgent', '123');
         $smsData = self::$sms->all();
         $this->assertEquals([
-        'Luosimao' => '123',
+        'IhuyiAgent' => '123',
         ], $smsData['templates']);
         self::$sms->template([
-            'Luosimao' => '1234',
+            'IhuyiAgent' => '1234',
             'YunTongXun' => '6789',
         ]);
         $smsData = self::$sms->all();
         $this->assertEquals([
-            'Luosimao' => '1234',
+            'IhuyiAgent' => '1234',
             'YunTongXun' => '6789',
         ], $smsData['templates']);
     }
@@ -107,7 +107,7 @@ class IhuyiAgentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('this is content', $smsData['content']);
     }
 
-    public function testSendSms()
+    public function testSend()
     {
         $to = 13780185250;
         $content = "内容";
@@ -120,7 +120,18 @@ class IhuyiAgentTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('time', $result);
         $this->assertArrayHasKey('logs', $result);
     }
-
+    /*
+    public function testSendSms()
+    {
+        $to = 13780185250;
+        $content = "内容";
+        $tempId=1;
+        $tempData = [
+            'msg' => 'msg',
+        ];
+        $sms = new IhuyiAgent();
+        $result = $sms->sendSms($to,$content,$tempId,$tempData,$params=[]);
+    }*/
     public function testBeforeSend()
     {
         Sms::beforeSend(function () {
